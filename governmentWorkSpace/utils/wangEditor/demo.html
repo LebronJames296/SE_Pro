@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>wangEditor demo</title>
+		<script type="text/javascript" src="E:/redactor/wangEditor/release/wangEditor.min.js"></script>
+		<script src="E:/专业用/layui-v2.4.5/layui/layui.js"></script>
+		<link rel="stylesheet" href="E:/专业用/layui-v2.4.5/layui/css/layui.css" />
+	</head>
+	
+	<body>
+
+		<button type="button" class="layui-btn">弹出</button>
+
+
+		<script type="text/javascript">
+			layui.use('layer',function(){
+					var layer = layui.layer;
+				
+				layer.open({
+					type: 1,
+					area:['800px','600px'],
+					
+					content: '<div id="editor">'+
+								'<p>欢迎使用 <b>wangEditor</b> 富文本编辑器</p>'+
+							'</div>',
+					btn: '关闭全部',
+					btnAlign: 'c', //按钮居中
+					shade: 0, //不显示遮罩
+					success:function(){
+						var E = window.wangEditor;
+						var editor = new E('#editor');
+						//置顶
+						editor.customConfig.zIndex = 100;
+						// 自定义 onchange 触发的延迟时间，默认为 200 ms
+						editor.customConfig.onchangeTimeout = 3000; // 单位 ms
+						//自动得到输入框内容
+						editor.customConfig.onchange = function(text) {
+							console.log(editor.txt.text());
+						}
+						//获得焦点
+						editor.customConfig.onfocus = function() {
+							console.log("onfocus");
+						}
+						//失去焦点
+						editor.customConfig.onblur = function(html) {
+							// html 即编辑器中的内容
+							console.log('onblur', html);
+						}
+						// 下面两个配置，使用其中一个即可显示“上传图片”的tab。但是两者不要同时使用！！！
+						// editor.customConfig.uploadImgShowBase64 = true   // 使用 base64 保存图片
+						// editor.customConfig.uploadImgServer = '/upload'  // 上传图片到服务器
+						//上传图片配置
+						editor.customConfig.uploadImgMaxSize = 3 * 1024 * 1024;
+						editor.customConfig.uploadImgMaxLength = 5
+						//获得插入图片的链接
+						editor.customConfig.linkImgCallback = function(url) {
+							console.log(url) // url 即插入图片的地址
+						}
+						editor.create();
+					},
+					yes: function() {
+						console.log("1111");
+					}
+				});
+			})
+
+			
+			//获取文本
+			// document.getElementById('btn2').addEventListener('click', function() {
+			// 	// 读取 text
+			// 	alert(editor.txt.text());
+			// }, false);
+			//自动获得内容改变
+			// document.getElementById('btn1').addEventListener('click', function() {
+			// 	// 如果未配置 editor.customConfig.onchange，则 editor.change 为 undefined
+			// 	editor.change && editor.change();
+			// });
+			//获取全部数据
+			// document.getElementById('btn3').addEventListener('click', function() {
+			// 	var json = editor.txt.getJSON() // 获取 JSON 格式的内容
+			// 	var jsonStr = JSON.stringify(json)
+			// 	console.log(json)
+			// 	console.log(jsonStr)
+			// })
+		</script>
+	</body>
+</html>
