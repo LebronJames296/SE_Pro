@@ -44,13 +44,13 @@
 
 					<ul class="layui-nav layui-nav-tree" lay-filter="test">
 						<li class="layui-nav-item">
-							<center><button class="layui-btn layui-btn-lg layui-btn-normal" style="margin-top: 45px;margin-bottom: 45px;">新建报告</center></button>
+							<center><button class="layui-btn layui-btn-lg layui-btn-normal" onclick="setClick('employee/createReport.html')" style="margin-top: 45px;margin-bottom: 45px;">新建报告</center></button>
 						</li>
 						<li class="layui-nav-item"><a href="javascript:;">草稿箱</a></li>
 						<li class="layui-nav-item layui-nav-itemed">
 							<a class="" href="javascript:;">已提交</a>
 							<dl class="layui-nav-child">
-								<dd onclick="setClick()"><a href="javascript:;">列表一</a></dd>
+								<dd onclick="setClick('employee/reportList.html')"><a href="javascript:;">列表一</a></dd>
 								<dd><a href="javascript:;">列表二</a></dd>
 								<dd><a href="javascript:;">列表三</a></dd>
 							</dl>
@@ -75,8 +75,8 @@
 		<script src="../utils/layui/font/jquery-3.4.1.min.js"></script>
 		<script>
 			// $('iframe').src='ReportList.html';
-			function setClick() {
-				document.getElementById("body").src = "employee/reportList.html";
+			function setClick(target) {
+				document.getElementById("body").src = target;
 			}
 			//layui.JavaScript代码区域
 			layui.use('element', function() {
