@@ -12,8 +12,8 @@
 				<div class="layui-logo"><img src="../utils/image/hnistLogo.png" class="layui-nav-img">项目管理系统</div>
 				<!-- 头部区域（可配合layui已有的水平导航） -->
 				<ul class="layui-nav layui-layout-left">
-					<li class="layui-nav-item"><a href="">控制台</a></li>
-					<li class="layui-nav-item"><a href="">管理</a></li>
+						<li class="layui-nav-item"><i class="layui-icon layui-icon-search" style="font-size: 25px;">:&nbsp;</i></li>
+					<li class="layui-nav-item"><input type="text" name="searchText" required  lay-verify="required" placeholder="搜索标题文档..." autocomplete="off" class="layui-input"></li>
 					<li class="layui-nav-item"><a href="">用户</a></li>
 					<li class="layui-nav-item">
 						<a href="javascript:;">其它系统</a>
@@ -44,7 +44,7 @@
 
 					<ul class="layui-nav layui-nav-tree" lay-filter="test">
 						<li class="layui-nav-item">
-							<center><button class="layui-btn layui-btn-lg layui-btn-normal" onclick="setClick('employee/createReport.html')" style="margin-top: 45px;margin-bottom: 45px;">新建报告</center></button>
+							<center><button class="layui-btn layui-btn-lg layui-btn-normal" onclick="setClick('employee/createReport.html')" style="margin-top: 45px;margin-bottom: 45px;width: 160px;">新建报告</center></button>
 						</li>
 						<li class="layui-nav-item"><a href="javascript:;">草稿箱</a></li>
 						<li class="layui-nav-item layui-nav-itemed">
@@ -63,7 +63,7 @@
 
 			<div class="layui-body">
 				<!-- 内容主体区域 -->
-				<iframe id="body" src="employee/employHome.html" style="height: 100%;width: 100%;"></iframe>
+				<iframe id="body" src="employee/employHome.html" style="height: 98%;width: 100%;"></iframe>
 			</div>
 
 			<div class="layui-footer">

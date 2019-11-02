@@ -1,52 +1,73 @@
-<form class="layui-form" action="">
-	<div class="layui-form-item">
-		<label class="layui-form-label">输入框</label>
-		<div class="layui-input-block">
-			<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+<style>
+	.w-e-text-container{
+    height: 540px !important;
+}
+</style>
+<form class="layui-form layui-form-pane" action="">
+	<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+		<legend>报告编写</legend>
+	</fieldset>
+
+	<div style="margin-left: 60px;margin-right: 60px;">
+		<!-- 分成两个部分的栅格系统 -->
+		<div class="layui-row">
+
+			<div class="layui-col-xs6">
+				<div class="layui-form-item" pane>
+					<label class="layui-form-label">项目类别:</label>
+					<div class="layui-input-block">
+						<select name="city" lay-verify="required">
+							<option value=""></option>
+							<option value="0">北京</option>
+							<option value="1">上海</option>
+							<option value="2">广州</option>
+							<option value="3">深圳</option>
+							<option value="4">杭州</option>
+						</select>
+					</div>
+				</div>
+				<div class="layui-form-item" pane>
+					<label class="layui-form-label">项目主题:</label>
+					<div class="layui-input-block">
+						<input type="text" name="title" required lay-verify="required" placeholder="请输入项目主题" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+			</div>
+			<div class="layui-col-xs6">
+				<div class="layui-form-item" pane>
+					<label class="layui-form-label">收件人:</label>
+					<div class="layui-input-block">
+						<input type="checkbox" name="like[write]" title="写作">
+						<input type="checkbox" name="like[read]" title="阅读" checked>
+						<input type="checkbox" name="like[dai]" title="发呆">
+					</div>
+				</div>
+				<div class="layui-form-item" pane>
+					<label class="layui-form-label">是否:</label>
+					<div class="layui-input-block">
+						<input type="radio" name="sex" value="男" title="男">
+						<input type="radio" name="sex" value="女" title="女" checked>
+					</div>
+				</div>
+			</div>
 		</div>
-	</div>
-	<div class="layui-form-item">
-		<label class="layui-form-label">选择框</label>
-		<div class="layui-input-block">
-			<select name="city" lay-verify="required">
-				<option value=""></option>
-				<option value="0">北京</option>
-				<option value="1">上海</option>
-				<option value="2">广州</option>
-				<option value="3">深圳</option>
-				<option value="4">杭州</option>
-			</select>
+		<div class="layui-form-item" pane>
+			<label class="layui-form-label">项目概述:</label>
+			<div class="layui-input-block">
+				<input type="text" name="title" required lay-verify="required" placeholder="请简述介绍项目" autocomplete="off" class="layui-input">
+			</div>
 		</div>
-	</div>
-	<div class="layui-form-item">
-		<label class="layui-form-label">复选框</label>
-		<div class="layui-input-block">
-			<input type="checkbox" name="like[write]" title="写作">
-			<input type="checkbox" name="like[read]" title="阅读" checked>
-			<input type="checkbox" name="like[dai]" title="发呆">
-		</div>
-	</div>
-	<div class="layui-form-item">
-		<label class="layui-form-label">开关</label>
-		<div class="layui-input-block">
-			<input type="checkbox" name="switch" lay-skin="switch">
-		</div>
-	</div>
-	<div class="layui-form-item">
-		<label class="layui-form-label">单选框</label>
-		<div class="layui-input-block">
-			<input type="radio" name="sex" value="男" title="男">
-			<input type="radio" name="sex" value="女" title="女" checked>
-		</div>
-	</div>
-	<div id="editor"></div>
-	<div class="layui-form-item">
-		<div class="layui-input-block">
-			<button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
-			<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+
+		<!-- 这是编辑器 -->
+		<div id="editor"></div>
+		<div class="layui-form-item">
+			<div class="layui-input-block">
+				<button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+			</div>
 		</div>
 	</div>
 </form>
+
 <link rel="stylesheet" href="../../utils/layui/css/layui.css">
 <script src="../../utils/wangEditor/release/wangEditor.js"></script>
 <script src="../../utils/layui/layui.js"></script>
@@ -56,7 +77,7 @@
 	// 或者 var editor = new E( document.getElementById('editor') )
 	editor.create();
 	//layui.JavaScript代码区域
-	layui.use(['element','form'], function() {
+	layui.use(['element', 'form'], function() {
 		var element = layui.element;
 
 		var form = layui.form;
