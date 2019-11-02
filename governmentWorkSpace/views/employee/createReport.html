@@ -37,9 +37,9 @@
 				<div class="layui-form-item" pane>
 					<label class="layui-form-label">收件人:</label>
 					<div class="layui-input-block">
-						<input type="checkbox" name="like[write]" title="写作">
-						<input type="checkbox" name="like[read]" title="阅读" checked>
-						<input type="checkbox" name="like[dai]" title="发呆">
+						<input type="checkbox" name="like[write]" title="李领导">
+						<input type="checkbox" name="like[read]" title="毛领导" checked>
+						<input type="checkbox" name="like[dai]" title="胡领导">
 					</div>
 				</div>
 				<div class="layui-form-item" pane>
@@ -57,14 +57,24 @@
 				<input type="text" name="title" required lay-verify="required" placeholder="请简述介绍项目" autocomplete="off" class="layui-input">
 			</div>
 		</div>
+		<!-- 分成两个部分的栅格系统 -->
+		<div class="layui-row">
 
+		<div class="layui-col-xs6">
 		<!-- 这是编辑器 -->
 		<div id="editor"></div>
-		<div class="layui-form-item">
-			<div class="layui-input-block">
+	</div>
+	<div class="layui-col-xs6">
+	<!-- 这是编辑器 -->
+	<div id="editorLook"></div>
+</div>
+</div>
+<br>
+<center>
+				<button class="layui-btn layui-btn-normal" type="button" onclick="aheadLook()">右侧预览</button>
+				<button class="layui-btn layui-btn-warm" type="button">保存到草稿箱</button>
 				<button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
-			</div>
-		</div>
+</center>
 	</div>
 </form>
 
@@ -72,10 +82,19 @@
 <script src="../../utils/wangEditor/release/wangEditor.js"></script>
 <script src="../../utils/layui/layui.js"></script>
 <script>
-	var E = window.wangEditor
+
+	var E = window.wangEditor;
 	var editor = new E('#editor');
-	// 或者 var editor = new E( document.getElementById('editor') )
 	editor.create();
+
+	var F= window.wangEditor;
+	var editorLook = new F('#editorLook');
+	editorLook.create();
+	editorLook.$textElem.attr('contenteditable', false);	// 禁用编辑功能
+
+	function aheadLook(){
+		editorLook.txt.html(editor.txt.html());
+	}
 	//layui.JavaScript代码区域
 	layui.use(['element', 'form'], function() {
 		var element = layui.element;
