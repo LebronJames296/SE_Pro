@@ -1,0 +1,29 @@
+<link rel="stylesheet" href="../../utils/layui/css/layui.css">
+<script src="../../utils/wangEditor/release/wangEditor.js"></script>
+<script src="../../utils/layui/layui.js"></script>
+
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+    <legend>回收站</legend>
+</fieldset>
+123
+
+<script>
+    var E = window.wangEditor;
+    var editor = new E('#editor');
+    editor.create();
+
+
+    //layui.JavaScript代码区域
+    layui.use(['element', 'form'], function() {
+        var element = layui.element;
+
+        var form = layui.form;
+
+        //监听提交
+        form.on('submit(formDemo)', function(data) {
+            layer.msg(JSON.stringify(data.field));
+            return false;
+        });
+    });
+
+</script>

@@ -13,6 +13,24 @@
 		<div class="layui-row">
 
 			<div class="layui-col-xs6">
+
+				<div class="layui-form-item" pane>
+					<label class="layui-form-label">项目主题:</label>
+					<div class="layui-input-block">
+						<input type="text" name="title" required lay-verify="required" placeholder="请输入项目主题" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item" pane>
+					<label class="layui-form-label">收件人:</label>
+					<div class="layui-input-block">
+						<input type="checkbox" name="like[write]" title="李领导">
+						<input type="checkbox" name="like[read]" title="毛领导" checked>
+						<input type="checkbox" name="like[dai]" title="胡领导">
+					</div>
+				</div>
+			</div>
+			<div class="layui-col-xs6">
+
 				<div class="layui-form-item" pane>
 					<label class="layui-form-label">项目类别:</label>
 					<div class="layui-input-block">
@@ -24,22 +42,6 @@
 							<option value="3">深圳</option>
 							<option value="4">杭州</option>
 						</select>
-					</div>
-				</div>
-				<div class="layui-form-item" pane>
-					<label class="layui-form-label">项目主题:</label>
-					<div class="layui-input-block">
-						<input type="text" name="title" required lay-verify="required" placeholder="请输入项目主题" autocomplete="off" class="layui-input">
-					</div>
-				</div>
-			</div>
-			<div class="layui-col-xs6">
-				<div class="layui-form-item" pane>
-					<label class="layui-form-label">收件人:</label>
-					<div class="layui-input-block">
-						<input type="checkbox" name="like[write]" title="李领导">
-						<input type="checkbox" name="like[read]" title="毛领导" checked>
-						<input type="checkbox" name="like[dai]" title="胡领导">
 					</div>
 				</div>
 				<div class="layui-form-item" pane>
@@ -62,11 +64,11 @@
 
 		<div class="layui-col-xs6">
 		<!-- 这是编辑器 -->
-		<div id="editor"></div>
+				<div id="editor"></div>
 	</div>
 	<div class="layui-col-xs6">
-	<!-- 这是编辑器 -->
-	<div id="editorLook"></div>
+	<!-- 这是预览器 -->
+			<div id="editorLook" style="pointer-events: none;"></div>
 </div>
 </div>
 <br>

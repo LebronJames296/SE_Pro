@@ -1,0 +1,100 @@
+<link rel="stylesheet" href="../../utils/layui/css/layui.css">
+<script src="../../utils/wangEditor/release/wangEditor.js"></script>
+<script src="../../utils/layui/layui.js"></script>
+
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+    <legend>草稿箱</legend>
+</fieldset>
+
+<table class="layui-hide" id="LAY_table_user" lay-filter="user"></table>
+
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+
+</script>
+
+<script>
+    var E = window.wangEditor;
+    var editor = new E('#editor');
+    editor.create();
+
+    //layui.JavaScript代码区域
+    layui.use(['element', 'form', 'table'], function() {
+        var element = layui.element;
+        var table = layui.table;
+        var form = layui.form;
+
+        //监听提交
+        form.on('submit(formDemo)', function(data) {
+            layer.msg(JSON.stringify(data.field));
+            return false;
+        });
+
+
+        //方法级渲染
+        table.render({
+            elem: '#LAY_table_user',
+            url: '/demo/table/user/',
+            cols: [
+                [{
+                    checkbox: true,
+                    fixed: true
+                }, {
+                    field: 'id',
+                    title: 'ID',
+                    width: 80,
+                    sort: true,
+                    fixed: true
+                }, {
+                    field: 'username',
+                    title: '用户名',
+                    width: 80
+                }, {
+                    field: 'sex',
+                    title: '性别',
+                    width: 80,
+                    sort: true
+                }, {
+                    field: 'city',
+                    title: '城市',
+                    width: 80
+                }, {
+                    field: 'sign',
+                    title: '签名'
+                }, {
+                    field: 'experience',
+                    title: '积分',
+                    sort: true,
+                    width: 80
+                }, {
+                    field: 'score',
+                    title: '评分',
+                    sort: true,
+                    width: 80
+                }, {
+                    field: 'classify',
+                    title: '职业',
+                    width: 80
+                }, {
+                    field: 'wealth',
+                    title: '财富',
+                    sort: true,
+                    width: 135
+                }, {
+                    fixed: 'right',
+                    title: '数据操作',
+                    width: 178,
+                    align: 'center',
+                    toolbar: '#barDemo'
+                }]
+            ],
+            id: 'testReload',
+            page: true,
+            height: 600
+        });
+
+    });
+
+</script>
