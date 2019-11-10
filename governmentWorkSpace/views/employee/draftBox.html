@@ -1,3 +1,8 @@
+<style>
+	.w-e-text-container{
+    height: 500px !important;
+}
+</style>
 <link rel="stylesheet" href="../../utils/layui/css/layui.css">
 <script src="../../utils/wangEditor/release/wangEditor.js"></script>
 <script src="../../utils/layui/layui.js"></script>
@@ -6,8 +11,10 @@
     <legend>草稿箱</legend>
 </fieldset>
 
-<table class="layui-hide" id="LAY_table_user" lay-filter="user"></table>
+<div style="margin-left: 40px;margin-right: 40px;margin-top: 30px">
 
+    <table class="layui-hide" id="LAY_table_user" lay-filter="demo"></table>
+</div>
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
@@ -21,10 +28,12 @@
     editor.create();
 
     //layui.JavaScript代码区域
-    layui.use(['element', 'form', 'table'], function() {
+    layui.use(['element', 'form', 'table', 'layer'], function() {
         var element = layui.element;
         var table = layui.table;
         var form = layui.form;
+        var $ = layui.$;
+        var layer = layui.layer;
 
         //监听提交
         form.on('submit(formDemo)', function(data) {
@@ -36,64 +45,89 @@
         //方法级渲染
         table.render({
             elem: '#LAY_table_user',
-            url: '/demo/table/user/',
+            //url: '/demo/table/user/',
             cols: [
                 [{
-                    checkbox: true,
-                    fixed: true
-                }, {
-                    field: 'id',
-                    title: 'ID',
-                    width: 80,
-                    sort: true,
-                    fixed: true
-                }, {
-                    field: 'username',
-                    title: '用户名',
-                    width: 80
-                }, {
-                    field: 'sex',
-                    title: '性别',
-                    width: 80,
-                    sort: true
-                }, {
-                    field: 'city',
-                    title: '城市',
-                    width: 80
-                }, {
-                    field: 'sign',
-                    title: '签名'
-                }, {
-                    field: 'experience',
-                    title: '积分',
-                    sort: true,
-                    width: 80
-                }, {
-                    field: 'score',
-                    title: '评分',
-                    sort: true,
-                    width: 80
-                }, {
-                    field: 'classify',
-                    title: '职业',
-                    width: 80
-                }, {
-                    field: 'wealth',
-                    title: '财富',
-                    sort: true,
-                    width: 135
-                }, {
-                    fixed: 'right',
-                    title: '数据操作',
-                    width: 178,
-                    align: 'center',
-                    toolbar: '#barDemo'
-                }]
+                        checkbox: true,
+                        fixed: true
+                    },
+                    {
+                        field: 'id',
+                        title: 'ID',
+                        width: 100,
+                        sort: true,
+                        fixed: true
+                    },
+                    {
+                        field: 'project_name',
+                        title: '项目名',
+                        align: 'center'
+                    }, {
+                        field: 'introduction',
+                        title: '项目概述',
+                        align: 'center'
+                    }, {
+                        field: 'first_time',
+                        title: '项目创建时间',
+                        align: 'center'
+                    }, {
+                        field: 'recent_time',
+                        title: '项目最近更新时间',
+                        width: 160,
+                        align: 'center'
+                    }, {
+                        fixed: 'right',
+                        title: '数据操作',
+                        align: 'center',
+                        toolbar: '#barDemo'
+                    }
+                ]
             ],
+            data: [{
+                "id": '1',
+                "project_name": 'hnist',
+                "introduction": '介绍',
+                "first_time": '2019.11.02 ',
+                "recent_time": '2019.11.04'
+            }],
             id: 'testReload',
             page: true,
             height: 600
         });
+
+        //监听工具条
+        table.on('tool(demo)', function(obj) {
+            var data = obj.data;
+            if (obj.event === 'detail') {
+                layer.msg('ID：' + data.id + ' 的查看操作');
+                layer.open({
+                    type: 1,
+                    title: '正在查看***报告（草稿）', //标题栏
+                    closeBtn: false,
+                    area: ['700px', '630px'],
+                    shade: 0,
+                    id: 'LAY_layuipro', //设定一个id，防止重复弹出 
+                    btn: ['火速围观', '残忍拒绝'],
+                    btnAlign: 'c',
+                    moveType: 1, //拖拽模式，0或者1
+                    content: '<div id="editor" style="pointer-events: none;" ></div>',
+                    success: function() {
+                        var E = window.wangEditor;
+                        var editor = new E('#editor');
+                        editor.create();
+                        editor.$textElem.attr('contenteditable', false);	// 禁用编辑功能
+                    }
+                });
+            } else if (obj.event === 'del') {
+                layer.confirm('真的删除行么', function(index) {
+                    obj.del();
+                    layer.close(index);
+                });
+            } else if (obj.event === 'edit') {
+                layer.alert('编辑行：<br>' + JSON.stringify(data))
+            }
+        });
+
 
     });
 

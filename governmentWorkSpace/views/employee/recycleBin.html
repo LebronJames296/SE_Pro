@@ -1,3 +1,8 @@
+<style>
+	.w-e-text-container{
+    height: 540px !important;
+}
+</style>
 <link rel="stylesheet" href="../../utils/layui/css/layui.css">
 <script src="../../utils/wangEditor/release/wangEditor.js"></script>
 <script src="../../utils/layui/layui.js"></script>
@@ -5,25 +10,102 @@
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
     <legend>回收站</legend>
 </fieldset>
-123
+<div style="margin-left: 40px;margin-right: 40px;margin-top: 30px">
+
+    <table class="layui-hide" id="LAY_table_user" lay-filter="demo"></table>
+</div>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">撤回</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">彻底删除</a>
+
+</script>
 
 <script>
     var E = window.wangEditor;
     var editor = new E('#editor');
     editor.create();
 
-
     //layui.JavaScript代码区域
-    layui.use(['element', 'form'], function() {
+    layui.use(['element', 'form', 'table'], function() {
         var element = layui.element;
-
+        var table = layui.table;
         var form = layui.form;
+        var $ = layui.$;
 
         //监听提交
         form.on('submit(formDemo)', function(data) {
             layer.msg(JSON.stringify(data.field));
             return false;
         });
+
+
+        //方法级渲染
+        table.render({
+            elem: '#LAY_table_user',
+            //url: '/demo/table/user/',
+            cols: [
+                [{
+                        checkbox: true,
+                        fixed: true
+                    },
+                    {
+                        field: 'id',
+                        title: 'ID',
+                        width: 100,
+                        sort: true,
+                        fixed: true
+                    },
+                    {
+                        field: 'project_name',
+                        title: '项目名',
+                        align: 'center'
+                    }, {
+                        field: 'introduction',
+                        title: '项目概述',
+                        align: 'center'
+                    }, {
+                        field: 'first_time',
+                        title: '项目创建时间',
+                        align: 'center'
+                    }, {
+                        field: 'recent_time',
+                        title: '项目最近更新时间',
+                        width: 160,
+                        align: 'center'
+                    }, {
+                        fixed: 'right',
+                        title: '数据操作',
+                        align: 'center',
+                        toolbar: '#barDemo'
+                    }
+                ]
+            ],
+            data: [{
+                "id": '1',
+                "project_name": 'hnist',
+                "introduction": '介绍',
+                "first_time": '2019.11.02 ',
+                "recent_time": '2019.11.04'
+            }],
+            id: 'testReload',
+            page: true,
+            height: 600
+        });
+
+        //监听工具条
+        table.on('tool(demo)', function(obj) {
+            var data = obj.data;
+            if (obj.event === 'detail') {
+                layer.msg('ID：' + data.id + ' 的查看操作');
+            } else if (obj.event === 'del') {
+                layer.confirm('真的删除行么', function(index) {
+                    obj.del();
+                    layer.close(index);
+                });
+            } 
+        });
+        
+        
     });
 
 </script>
