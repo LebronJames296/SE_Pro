@@ -46,16 +46,18 @@
 
                 <ul class="layui-nav layui-nav-tree" lay-filter="test">
                     <li class="layui-nav-item">
-                        <center><button class="layui-btn layui-btn-lg layui-btn-normal" onclick="setClick('employee/createReport.html')" style="margin-top: 45px;margin-bottom: 45px;width: 160px;">新建报告</center></button>
+                        <center><button class="layui-btn layui-btn-lg layui-btn-normal" onclick="setClick('employee/createReport.html')" style="margin-top: 30px;margin-bottom: 30px;width: 160px;height: 62px;font-size: 27px;font-family: 楷体;">新建报告</center></button>
                     </li>
                     <li class="layui-nav-item" onclick="setClick('employee/draftBox.html')"><a href="javascript:;">草稿箱</a></li>
                     <li class="layui-nav-item layui-nav-itemed">
                         <a class="" href="javascript:;">已提交</a>
                         <dl class="layui-nav-child">
-                            <dd onclick="setClick('employee/reportList.html')"><a href="javascript:;">列表一</a></dd>
+							<dd onclick="setClick('employee/reportListing.html')"><a href="javascript:;">待/正·批复</a></dd>
+                            <dd onclick="setClick('employee/reportListend.html')"><a href="javascript:;">已结束批复</a></dd>
                             <dd onclick="setClick('manager/managerHome.html')"><a href="javascript:;">经理主页</a></dd>
+							<dd onclick="setClick('manager/isViewing.html')"><a href="javascript:;">正批复</a></dd>
                             <dd onclick="setClick('manager/notView.html')"><a href="javascript:;">未批复</a></dd>
-                            <dd onclick="setClick('manager/approved.html')"><a href="javascript:;">已批复</a></dd>
+                            <dd onclick="setClick('manager/approved.html')"><a href="javascript:;">已批准结束</a></dd>
                             <dd onclick="setClick('manager/collect.html')"><a href="javascript:;">收藏夹</a></dd>
                         </dl>
                     </li>

@@ -5,7 +5,7 @@
 </style>
 <form class="layui-form layui-form-pane" lay-filter="formTest" action="">
 	<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-		<legend>报告编写</legend>
+		<legend>报告交流</legend>
 	</fieldset>
 
 	<div style="margin-left: 40px;margin-right: 40px;">
@@ -21,7 +21,7 @@
 					</div>
 				</div>
 				<div class="layui-form-item" pane>
-					<label class="layui-form-label">收件人:</label>
+					<label class="layui-form-label">收件人:</label>  
 					<div class="layui-input-block">
 						<input type="checkbox" name="manager[li]" title="李领导">
 						<input type="checkbox" name="manager[mao]" title="毛领导" >
@@ -92,6 +92,8 @@
 		if (r != null) return decodeURI(r[2]);
 		return null;
 	}
+	console.log(GetQueryString("title"));
+	console.log(GetQueryString("introduction"));
 
 	var E = window.wangEditor;
 	var editor = new E('#editor');

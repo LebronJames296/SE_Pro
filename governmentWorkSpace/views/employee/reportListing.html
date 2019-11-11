@@ -8,7 +8,7 @@
 <script src="../../utils/layui/layui.js"></script>
 
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-	<legend>草稿箱</legend>
+	<legend>待/正批复(交流中)</legend>
 </fieldset>
 
 <div style="margin-left: 40px;margin-right: 40px;margin-top: 30px">
@@ -18,10 +18,9 @@
 
 
 <script type="text/html" id="barDemo">
-	<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">详情交流</a>
+	<!-- <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a> -->
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-
 </script>
 
 <script>
@@ -49,10 +48,7 @@
 			elem: '#LAY_table_user',
 			//url: '/demo/table/user/',
 			cols: [
-				[{
-						checkbox: true,
-						fixed: true
-					},
+				[
 					{
 						field: 'id',
 						title: 'ID',
@@ -105,28 +101,7 @@
 		//监听工具条
 		table.on('tool(demo)', function(obj) {
 			var data = obj.data;
-			if (obj.event === 'detail') {
-				layer.msg('ID：' + data.id + ' 的查看操作');
-				layer.open({
-					type: 1,
-					title: '正在查看***报告（草稿）', //标题栏
-					closeBtn: false,
-					area: ['700px', '600px'],
-					shade: 0,
-					id: 'LAY_layuipro', //设定一个id，防止重复弹出 
-					btn: ['关闭'],
-					btnAlign: 'c',
-					moveType: 1, //拖拽模式，0或者1
-					content: '<div id="editor" style="pointer-events: none;" ></div>',
-					success: function() {
-						var E = window.wangEditor;
-						var editor = new E('#editor');
-						editor.create();
-						editor.txt.html(data.context);
-						editor.$textElem.attr('contenteditable', false); // 禁用编辑功能
-					}
-				});
-			} else if (obj.event === 'del') {
+			if (obj.event === 'del') {
 				layer.confirm('真的删除行么', function(index) {
 					obj.del();
 					layer.close(index);
@@ -134,9 +109,9 @@
 			} else if (obj.event === 'edit') {
 				//console.log(data);
 				function jumpUrl() {
-					window.location.href = 'createReport.html?title=' + data.project_name + '&introduction=' + data.introduction + '&context=' +data.context;
+					window.location.href = 'reportExChange.html?title=' + data.project_name + '&introduction=' + data.introduction + '&context=' +data.context;
 				}
-				layer.msg("即将跳转到报告编辑页面...");
+				layer.msg("即将跳转到与领导就报告交流页面...");
 				setTimeout(jumpUrl, 1500);
 				//console.log('编辑行：<br>' + JSON.stringify(data));
 			}
