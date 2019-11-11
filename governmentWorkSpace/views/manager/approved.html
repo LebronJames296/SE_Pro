@@ -5,11 +5,148 @@
     <meta charset="utf-8">
     <title></title>
 </head>
-
+<style>
+	.w-e-text-container{
+    height: 470px !important;
+}
+</style>
+<link rel="stylesheet" href="../../utils/layui/css/layui.css">
+<script src="../../utils/wangEditor/release/wangEditor.js"></script>
+<script src="../../utils/layui/layui.js"></script>
 <body>
     <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-        <legend>已批复</legend>
+        <legend>已结束批准</legend>
     </fieldset>
+	<div style="margin-left: 40px;margin-right: 40px;margin-top: 30px">
+	
+		<table class="layui-hide" id="LAY_table_user" lay-filter="demo"></table>
+	</div>
+	<script type="text/html" id="barDemo">
+		<a class="layui-btn layui-btn-xs" lay-event="detail">详情</a>
+	<a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="edit">收藏</a>
+	<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+	</script>
+	<script>
+		var E = window.wangEditor;
+		var editor = new E('#editor');
+		editor.create();
+	
+		//layui.JavaScript代码区域
+		layui.use(['element', 'form', 'table', 'layer'], function() {
+			var element = layui.element;
+			var table = layui.table;
+			var form = layui.form;
+			var $ = layui.$;
+			var layer = layui.layer;
+	
+			//监听提交
+			form.on('submit(formDemo)', function(data) {
+				layer.msg(JSON.stringify(data.field));
+				return false;
+			});
+	
+	
+			//方法级渲染
+			table.render({
+				elem: '#LAY_table_user',
+				//url: '/demo/table/user/',
+				cols: [
+					[{
+							checkbox: true,
+							fixed: true
+						},
+						{
+							field: 'id',
+							title: 'ID',
+							width: 100,
+							sort: true,
+							fixed: true
+						},
+						{
+							field: 'project_name',
+							title: '项目名',
+							align: 'center'
+						},{
+							field: 'send_name',
+							title: '投稿人',
+							align: 'center'
+						}, {
+							field: 'introduction',
+							title: '项目概述',
+							align: 'center'
+						}, {
+							field: 'project_type',
+							title: '项目类型',
+							align: 'center'
+						}, {
+							field: 'first_time',
+							title: '项目创建时间',
+							align: 'center'
+						}, {
+							field: 'recent_time',
+							title: '项目最近更新时间',
+							width: 160,
+							align: 'center'
+						}, {
+							fixed: 'right',
+							title: '数据操作',
+							align: 'center',
+							toolbar: '#barDemo'
+						}
+					]
+				],
+				data: [{
+					"id": '1',
+					"project_name": 'hnist',
+					"introduction": '介绍',
+					"send_name":'毛俊斌'  ,
+					"project_type":'古建筑文化',
+					"first_time": '2019.11.02 ',
+					"recent_time": '2019.11.04'
+				}],
+				id: 'testReload',
+				page: true,
+				height: 550
+			});
+	
+			//监听工具条
+			table.on('tool(demo)', function(obj) {
+				var data = obj.data;
+				if (obj.event === 'detail') {
+					layer.msg('ID：' + data.id + ' 的查看操作');
+					layer.open({
+						type: 1,
+						title: '正在查看***报告（草稿）', //标题栏
+						closeBtn: false,
+						area: ['700px', '600px'],
+						shade: 0,
+						id: 'LAY_layuipro', //设定一个id，防止重复弹出 
+						btn: ['关闭'],
+						btnAlign: 'c',
+						moveType: 1, //拖拽模式，0或者1
+						content: '<div id="editor" style="pointer-events: none;" ></div>',
+						success: function() {
+							var E = window.wangEditor;
+							var editor = new E('#editor');
+							editor.create();
+							editor.$textElem.attr('contenteditable', false); // 禁用编辑功能
+						}
+					});
+				}else if (obj.event === 'edit') {
+					layer.alert('编辑行：<br>' + JSON.stringify(data))
+				}else if (obj.event === 'del') {
+                layer.confirm('真的删除行么', function(index) {
+                    obj.del();
+                    layer.close(index);
+                });
+            }
+			});
+	
+	
+		});
+	</script>
+	
+	
 </body>
 
 </html>

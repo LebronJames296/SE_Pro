@@ -22,7 +22,8 @@
 			<table class="layui-hide" id="LAY_table_user" lay-filter="demo"></table>
 		</div>
 		<script type="text/html" id="barDemo">
-			<a class="layui-btn  layui-btn-xs" lay-event="detail">批复</a>
+			<a class="layui-btn layui-btn-xs" lay-event="detail">再次批复</a>
+	    <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="edit">批准通过</a>
 		</script>
 		<script>
 			var E = window.wangEditor;
@@ -64,7 +65,7 @@
 								field: 'project_name',
 								title: '项目名',
 								align: 'center'
-							}, {
+							},{
 								field: 'send_name',
 								title: '投稿人',
 								align: 'center'
@@ -97,8 +98,8 @@
 						"id": '1',
 						"project_name": 'hnist',
 						"introduction": '介绍',
-						"send_name": '毛俊斌',
-						"project_type": '古建筑文化',
+						"send_name":'毛俊斌'  ,
+						"project_type":'古建筑文化',
 						"first_time": '2019.11.02 ',
 						"recent_time": '2019.11.04'
 					}],
@@ -130,6 +131,8 @@
 								editor.$textElem.attr('contenteditable', false); // 禁用编辑功能
 							}
 						});
+					}else if (obj.event === 'edit') {
+						layer.alert('编辑行：<br>' + JSON.stringify(data))
 					}
 				});
 
