@@ -17,15 +17,16 @@
 				<div class="layui-form-item" pane>
 					<label class="layui-form-label">项目主题:</label>
 					<div class="layui-input-block">
-						<input type="text" name="title" required lay-verify="required" placeholder="请输入项目主题" autocomplete="off" class="layui-input">
+						<input type="text" name="title" disabled required lay-verify="required" placeholder="请输入项目主题" autocomplete="off"
+						 class="layui-input">
 					</div>
 				</div>
 				<div class="layui-form-item" pane>
-					<label class="layui-form-label">收件人:</label>  
+					<label class="layui-form-label">收件人:</label>
 					<div class="layui-input-block">
-						<input type="checkbox" name="manager[li]" title="李领导">
-						<input type="checkbox" name="manager[mao]" title="毛领导" >
-						<input type="checkbox" name="manager[hu]" title="胡领导">
+						<input type="checkbox" name="manager[li]" title="李领导" disabled>
+						<input type="checkbox" name="manager[mao]" title="毛领导" disabled>
+						<input type="checkbox" name="manager[hu]" title="胡领导" disabled>
 					</div>
 				</div>
 			</div>
@@ -34,7 +35,7 @@
 				<div class="layui-form-item" pane>
 					<label class="layui-form-label">项目类别:</label>
 					<div class="layui-input-block">
-						<select name="city" lay-verify="required">
+						<select name="city" lay-verify="required" disabled>
 							<option value=""></option>
 							<option value="0">北京</option>
 							<option value="1">上海</option>
@@ -47,8 +48,8 @@
 				<div class="layui-form-item" pane>
 					<label class="layui-form-label">是否:</label>
 					<div class="layui-input-block">
-						<input type="radio" name="sex" value="男" title="男">
-						<input type="radio" name="sex" value="女" title="女" checked>
+						<input type="radio" name="sex" value="男" title="男" disabled>
+						<input type="radio" name="sex" value="女" title="女" checked disabled>
 					</div>
 				</div>
 			</div>
@@ -56,7 +57,7 @@
 		<div class="layui-form-item" pane>
 			<label class="layui-form-label">项目概述:</label>
 			<div class="layui-input-block">
-				<input type="text" name="introduction" required lay-verify="required" placeholder="请简述介绍项目" autocomplete="off"
+				<input type="text" name="introduction" disabled required lay-verify="required" placeholder="请简述介绍项目" autocomplete="off"
 				 class="layui-input">
 			</div>
 		</div>
@@ -66,18 +67,50 @@
 			<div class="layui-col-xs6">
 				<!-- 这是编辑器 -->
 				<div id="editor"></div>
+				<br />
+				<center>
+					<button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+				</center>
 			</div>
 			<div class="layui-col-xs6">
-				<!-- 这是预览器 -->
-				<div id="editorLook" style="pointer-events: none;"></div>
+				<!-- 聊天区 -->
+				<!-- <div id="" style="overflow-y: auto;border: 1px solid black;height: 562px;">
+					<label class="layui-form-label">聊天室</label>
+					
+				</div> -->
+				<fieldset class="layui-elem-field" style="height: 563px;font-family: 楷体;">
+					<legend>交流区</legend>
+					<div class="layui-field-box" style="height: 385px;font-size: 16px;">
+						<!-- 评论区单个样式 -->
+						<div style="margin-top: 5px; display: inline-block;">
+							<img src="../../utils/image/hnistLogo.png" style="height: 34px;width: 34px;display: inline-block; float: left;" />
+							<div style="width: 350px;display: inline-block;margin-left: 5px; font-size: 6px;">2019-11-11 19:30:56</div>
+							<div style="background-color: #eeeeee;width: 350px;display: inline-block;margin-left: 5px; ">报告写得很棒，思想敏锐，意图明确，继续加油,我相信你可以的！</div>
+						</div>
+					
+						<div style="margin-top: 5px;display: inline-block; ">
+							<img src="../../utils/image/天空1.jpg" style="height: 34px;width: 34px;display: inline-block; float: right;" />
+							<div style="width: 350px;display: inline-block;float: right;margin-right: 5px;text-align: right;font-size: 6px;">2019-11-11
+								19:30:56</div>
+							<div style="background-color: #93D1FF;width: 350px;display: inline-block;float: right;margin-right: 5px;">谢谢领导，我会继续加油，为政府，为人民！</div>
+						</div>
+					
+						<div id="change"></div>
+					</div>
+					<div class="layui-form-item layui-form-text" style="font-size:15px;">
+						<label class="layui-form-label">编辑区<button class="layui-btn layui-btn-xs layui-btn-normal" type="button" style="float: right;width: 80px;"
+							 onclick="sendMessage()">发送</button></label>
+						<div class="layui-input-block">
+							<textarea name="desc" id="textMessage" placeholder="请输入回复内容..." class="layui-textarea"></textarea>
+						</div>
+					</div>
+				</fieldset>
+				<center>
+
+				</center>
 			</div>
 		</div>
-		<br>
-		<center>
-			<button class="layui-btn layui-btn-normal" type="button" onclick="aheadLook()">右侧预览</button>
-			<button class="layui-btn layui-btn-warm" type="button">保存到草稿箱</button>
-			<button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
-		</center>
+
 	</div>
 </form>
 
@@ -85,6 +118,23 @@
 <script src="../../utils/wangEditor/release/wangEditor.js"></script>
 <script src="../../utils/layui/layui.js"></script>
 <script>
+	//时间戳变成时间（格式更加清楚）
+	function getdate() {
+		var now = new Date(),
+			y = now.getFullYear(),
+			m = now.getMonth() + 1,
+			d = now.getDate();
+		return y + "-" + (m < 10 ? "0" + m : m) + "-" + (d < 10 ? "0" + d : d) + " " + now.toTimeString().substr(0, 8);
+	}
+	//发送消息方法
+	function sendMessage() {
+		document.getElementById('change').outerHTML = '	<div style="margin-top: 5px;display: inline-block; ">'+
+							'<img src="../../utils/image/天空1.jpg" style="height: 34px;width: 34px;display: inline-block; float: right;" />'+
+							'<div style="width: 350px;display: inline-block;float: right;margin-right: 5px;text-align: right;font-size: 6px;">'+ getdate()+'</div>'+
+							'<div style="background-color: #93D1FF;width: 350px;display: inline-block;float: right;margin-right: 5px;">'+ document.getElementById('textMessage').value+'</div>'+
+						'</div><div id="change"></div>';
+		document.getElementById('textMessage').value='';
+	}
 	//用JS获取地址栏参数的方法
 	function GetQueryString(name) {
 		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
@@ -119,7 +169,7 @@
 		'redo' // 重复
 	]
 	editor.create();
-	
+
 
 	var F = window.wangEditor;
 	var editorLook = new F('#editorLook');
@@ -136,12 +186,12 @@
 		var element = layui.element;
 
 		var form = layui.form;
-		
+
 		//表单初始化
-		if(GetQueryString("title") != null ){
-			form.val("formTest", { 
-				"title": GetQueryString("title") ,
-				"introduction" : GetQueryString("introduction"),
+		if (GetQueryString("title") != null) {
+			form.val("formTest", {
+				"title": GetQueryString("title"),
+				"introduction": GetQueryString("introduction"),
 				"sex": "男",
 				"city": 0,
 				"manager[li]": true,
@@ -149,7 +199,7 @@
 			editorLook.txt.html(GetQueryString("context"));
 			editor.txt.html(GetQueryString("context"));
 		}
-		
+
 		//监听提交
 		form.on('submit(formDemo)', function(data) {
 			layer.msg(JSON.stringify(data.field));
