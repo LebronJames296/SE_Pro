@@ -5,7 +5,7 @@
 </style>
 <form class="layui-form layui-form-pane" lay-filter="formTest" action="">
 	<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-		<legend id="titleText">进行报告交流</legend>
+		<legend id="titleText">对报告进行批复</legend>
 	</fieldset>
 
 	<div style="margin-left: 40px;margin-right: 40px;">
@@ -66,11 +66,8 @@
 
 			<div class="layui-col-xs6">
 				<!-- 这是编辑器 -->
-				<div id="editor"></div>
+				<div id="editor" style="pointer-events: none;"></div>
 				<br />
-				<center>
-					<button class="layui-btn" id="submitBtn" lay-submit lay-filter="formDemo">立即提交</button>
-				</center>
 			</div>
 			<div class="layui-col-xs6">
 				<!-- 聊天区 -->
@@ -80,19 +77,19 @@
 				</div> -->
 				<fieldset class="layui-elem-field" style="height: 563px;font-family: 楷体;">
 					<legend>交流区</legend>
-					<div class="layui-field-box" id="scrollText" style="height: 385px;font-size: 16px;overflow-y: scroll;" >
+					<div class="layui-field-box" id="scrollText" style="height: 385px;font-size: 16px;overflow-y: scroll;">
 						<!-- 评论区单个样式 -->
 						<div style="margin-top: 5px; display: inline-block;">
-							<img src="../../utils/image/hnistLogo.png" style="height: 34px;width: 34px;display: inline-block; float: left;" />
-							<div style="width: 350px;display: inline-block;margin-left: 5px; font-size: 6px;">2019-11-11 19:30:56</div>
-							<div style="background-color: #eeeeee;width: 350px;display: inline-block;margin-left: 5px; ">报告写得很棒，思想敏锐，意图明确，继续加油,我相信你可以的！</div>
+							<img src="../../utils/image/hnistLogo.png" style="height: 34px;width: 34px;display: inline-block; float: right;" />
+							<div style="width: 350px;display: inline-block;float: right;margin-right: 5px;text-align: right;font-size: 6px;">2019-11-11 19:30:56</div>
+							<div style="background-color: #93D1FF;width: 350px;display: inline-block;float: right;margin-right: 5px;">报告写得很棒，思想敏锐，意图明确，继续加油,我相信你可以的！</div>
 						</div>
 
 						<div style="margin-top: 5px;display: inline-block; ">
-							<img src="../../utils/image/天空1.jpg" style="height: 34px;width: 34px;display: inline-block; float: right;" />
-							<div style="width: 350px;display: inline-block;float: right;margin-right: 5px;text-align: right;font-size: 6px;">2019-11-11
+							<img src="../../utils/image/天空1.jpg"  style="height: 34px;width: 34px;display: inline-block; float: left;"/>
+							<div style="width: 350px;display: inline-block;margin-left: 5px; font-size: 6px;">2019-11-11
 								19:30:56</div>
-							<div style="background-color: #93D1FF;width: 350px;display: inline-block;float: right;margin-right: 5px;">谢谢领导，我会继续加油，为政府，为人民！</div>
+							<div style="background-color: #eeeeee;width: 350px;display: inline-block;margin-left: 5px; ">谢谢领导，我会继续加油，为政府，为人民！</div>
 						</div>
 
 						<div id="change"></div>
@@ -129,7 +126,7 @@
 	//发送消息方法
 	function sendMessage() {
 		document.getElementById('change').outerHTML = '	<div style="margin-top: 5px;display: inline-block; ">' +
-			'<img src="../../utils/image/天空1.jpg" style="height: 34px;width: 34px;display: inline-block; float: right;" />' +
+			'<img src="../../utils/image/hnistLogo.png" style="height: 34px;width: 34px;display: inline-block; float: right;" />' +
 			'<div style="width: 350px;display: inline-block;float: right;margin-right: 5px;text-align: right;font-size: 6px;">' +
 			getdate() + '</div>' +
 			'<div style="background-color: #93D1FF;width: 350px;display: inline-block;float: right;margin-right: 5px;">' +
@@ -169,6 +166,7 @@
 		'redo' // 重复
 	]
 	editor.create();
+	editor.$textElem.attr('contenteditable', false); // 禁用编辑功能
 
 	function aheadLook() {
 		editorLook.txt.html(editor.txt.html());
@@ -191,11 +189,8 @@
 			editor.txt.html(GetQueryString("context"));
 			//已结束  批复1代表已结束
 			if (GetQueryString("status") == "1") {
-				editor.$textElem.attr('contenteditable', false); // 禁用编辑功能
-				document.getElementById("editor").style = "pointer-events: none;"; //style="pointer-events: none;"
 				document.getElementById("editText").style = "display:none;";
-				document.getElementById("submitBtn").style = "display:none;";
-				document.getElementById("titleText").innerText = "查看报告与交流";
+				document.getElementById("titleText").innerText = "查看已通过批复详情";
 				document.getElementById("scrollText").style.height = "520px";
 			}
 		}

@@ -1,97 +1,117 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>政府报告</title>
-    <link rel="stylesheet" href="../utils/layui/css/layui.css">
-</head>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>政府报告</title>
+		<link rel="stylesheet" href="../utils/layui/css/layui.css">
+	</head>
 
-<body class="layui-layout-body">
-    <div class="layui-layout layui-layout-admin">
-        <div class="layui-header">
-            <div class="layui-logo"><img src="../utils/image/hnistLogo.png" class="layui-nav-img">项目管理系统</div>
-            <!-- 头部区域（可配合layui已有的水平导航） -->
-            <ul class="layui-nav layui-layout-left">
-                <li class="layui-nav-item"><i class="layui-icon layui-icon-search" style="font-size: 25px;">:&nbsp;</i></li>
-                <li class="layui-nav-item"><input type="text" name="searchText" required lay-verify="required" placeholder="搜索标题文档..." autocomplete="off" class="layui-input"></li>
-                <li class="layui-nav-item"><a href="">用户</a></li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;">其它系统</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="">消息管理</a></dd>
-                        <dd><a href="">授权管理</a></dd>
-                    </dl>
-                </li>
-            </ul>
-            <ul class="layui-nav layui-layout-right">
-                <li class="layui-nav-item">
-                    <a href="javascript:;">
-                        <img src="../utils/image/二锅头.png" class="layui-nav-img">
-                        董哥
-                    </a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="">基本资料</a></dd>
-                        <dd><a href="">安全设置</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item"><a href="">退出</a></li>
-            </ul>
-        </div>
+	<body class="layui-layout-body">
+		<div class="layui-layout layui-layout-admin">
+			<div class="layui-header">
+				<div class="layui-logo"><img src="../utils/image/hnistLogo.png" class="layui-nav-img">项目管理系统</div>
+				<!-- 头部区域（可配合layui已有的水平导航） -->
+				<ul class="layui-nav layui-layout-left">
+					<li class="layui-nav-item"><i class="layui-icon layui-icon-search" style="font-size: 25px;">:&nbsp;</i></li>
+					<li class="layui-nav-item"><input type="text" name="searchText" required lay-verify="required" placeholder="搜索标题文档..."
+						 autocomplete="off" class="layui-input"></li>
+					<li class="layui-nav-item"><a href="">用户</a></li>
+					<li class="layui-nav-item">
+						<a href="javascript:;">其它系统</a>
+						<dl class="layui-nav-child">
+							<dd><a href="">消息管理</a></dd>
+							<dd><a href="">授权管理</a></dd>
+						</dl>
+					</li>
+				</ul>
+				<ul class="layui-nav layui-layout-right">
+					<li class="layui-nav-item">
+						<a href="javascript:;">
+							<img src="../utils/image/二锅头.png" class="layui-nav-img">
+							董哥
+						</a>
+						<dl class="layui-nav-child">
+							<dd><a href="">基本资料</a></dd>
+							<dd><a href="">安全设置</a></dd>
+						</dl>
+					</li>
+					<li class="layui-nav-item"><a href="">退出</a></li>
+				</ul>
+			</div>
 
-        <div class="layui-side layui-bg-black">
-            <div class="layui-side-scroll">
-                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+			<div class="layui-side layui-bg-black">
+				<div class="layui-side-scroll">
+					<!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+					<!-- 员工 -->
+					<ul class="layui-nav layui-nav-tree" lay-filter="test" id="employeeTree" style="display: none;">
+						<li class="layui-nav-item">
+							<center><button class="layui-btn layui-btn-lg layui-btn-normal" onclick="setClick('employee/createReport.html')"
+								 style="margin-top: 30px;margin-bottom: 30px;width: 160px;height: 62px;font-size: 27px;font-family: 楷体;">新建报告</center></button>
+						</li>
+						<li class="layui-nav-item" onclick="setClick('employee/draftBox.html')"><a href="javascript:;">草稿箱</a></li>
+						<li class="layui-nav-item layui-nav-itemed">
+							<a class="" href="javascript:;">已提交</a>
+							<dl class="layui-nav-child">
+								<dd onclick="setClick('employee/reportListing.html')"><a href="javascript:;">正在交流报告</a></dd>
+								<dd onclick="setClick('employee/reportListend.html')"><a href="javascript:;">已完成报告</a></dd>
+							</dl>
+						</li>
+						<li class="layui-nav-item" onclick="setClick('shareFunction/collect.html')"><a href="javascript:;">收藏夹</a></li>
+						<li class="layui-nav-item" onclick="setClick('shareFunction/recycleBin.html')"><a href="javascript:;">回收站</a></li>
+					</ul>
+					<!-- 经理 -->
+					<ul class="layui-nav layui-nav-tree" lay-filter="test" id="managerTree" style="display: none;">
+						<li class="layui-nav-item" onclick="setClick('manager/notView.html')"><a href="javascript:;">未批复(首次)</a></li>
+						<li class="layui-nav-item" onclick="setClick('manager/isViewing.html')"><a href="javascript:;">正在批复</a></li>
+						<li class="layui-nav-item" onclick="setClick('manager/approved.html')"><a href="javascript:;">已通过批复</a></li>
+						<li class="layui-nav-item" onclick="setClick('shareFunction/collect.html')"><a href="javascript:;">收藏夹</a></li>
+						<li class="layui-nav-item" onclick="setClick('shareFunction/recycleBin.html')"><a href="javascript:;">回收站</a></li>
+					</ul>
+				</div>
+			</div>
 
-                <ul class="layui-nav layui-nav-tree" lay-filter="test">
-                    <li class="layui-nav-item">
-                        <center><button class="layui-btn layui-btn-lg layui-btn-normal" onclick="setClick('employee/createReport.html')" style="margin-top: 30px;margin-bottom: 30px;width: 160px;height: 62px;font-size: 27px;font-family: 楷体;">新建报告</center></button>
-                    </li>
-                    <li class="layui-nav-item" onclick="setClick('employee/draftBox.html')"><a href="javascript:;">草稿箱</a></li>
-                    <li class="layui-nav-item layui-nav-itemed">
-                        <a class="" href="javascript:;">已提交</a>
-                        <dl class="layui-nav-child">
-							<dd onclick="setClick('employee/reportListing.html')"><a href="javascript:;">待/正·批复</a></dd>
-                            <dd onclick="setClick('employee/reportListend.html')"><a href="javascript:;">已结束批复</a></dd>
-                            <dd onclick="setClick('manager/managerHome.html')"><a href="javascript:;">经理主页</a></dd>
-							<dd onclick="setClick('manager/isViewing.html')"><a href="javascript:;">正批复</a></dd>
-                            <dd onclick="setClick('manager/notView.html')"><a href="javascript:;">未批复</a></dd>
-                            <dd onclick="setClick('manager/approved.html')"><a href="javascript:;">已批准结束</a></dd>
-                            <dd onclick="setClick('manager/collect.html')"><a href="javascript:;">收藏夹</a></dd>
-                        </dl>
-                    </li>
-                    <li class="layui-nav-item" onclick="setClick('employee/recycleBin.html')"><a href="javascript:;">回收站</a></li>
+			<div class="layui-body">
+				<!-- 内容主体区域 -->
+				<iframe id="body" src="employee/employHome.html" style="height: 98%;width: 100%;"></iframe>
+			</div>
 
-                </ul>
-            </div>
-        </div>
+			<div class="layui-footer">
+				<!-- 底部固定区域 -->
+				© 软件工程小组开发 - 底部固定区域
+			</div>
+		</div>
+		<script src="../utils/layui/layui.js"></script>
+		<script src="../utils/layui/font/jquery-3.4.1.min.js"></script>
+		<script>
+			//用JS获取地址栏参数的方法
+			function GetQueryString(name) {
+				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+				var r = window.location.search.substr(1).match(reg); //search,查询？后面的参数，并匹配正则
+				if (r != null) return decodeURI(r[2]);
+				return null;
+			}
+			console.log(GetQueryString("user"));
+			//user = 0是经理  user=1 是员工
+		
+			//如果是经理要修改iframe  manager/managerHome.html首页
+			if (GetQueryString("user") == "0") {
+				document.getElementById("managerTree").style = 'display:"";';
+				document.getElementById("body").src = "manager/managerHome.html";
+			} else if (GetQueryString("user") == "1") {
+				document.getElementById("employeeTree").style = 'display:"";';
+			}
 
-        <div class="layui-body">
-            <!-- 内容主体区域 -->
-            <iframe id="body" src="employee/employHome.html" style="height: 98%;width: 100%;"></iframe>
-        </div>
-
-        <div class="layui-footer">
-            <!-- 底部固定区域 -->
-            © 软件工程小组开发 - 底部固定区域
-        </div>
-    </div>
-    <script src="../utils/layui/layui.js"></script>
-    <script src="../utils/layui/font/jquery-3.4.1.min.js"></script>
-    <script>
-        // $('iframe').src='ReportList.html';
-        function setClick(target) {
-            document.getElementById("body").src = target;
-        }
-        //layui.JavaScript代码区域
-        layui.use('element', function() {
-            var element = layui.element;
-
-
-        });
-
-    </script>
-</body>
+			// $('iframe').src='ReportList.html';
+			function setClick(target) {
+				document.getElementById("body").src = target;
+			}
+			//layui.JavaScript代码区域
+			layui.use('element', function() {
+				var element = layui.element;
+			});
+		</script>
+	</body>
 
 </html>

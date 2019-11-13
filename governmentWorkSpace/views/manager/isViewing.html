@@ -15,7 +15,7 @@
 	<script src="../../utils/layui/layui.js"></script>
 	<body>
 		<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-			<legend>正批复</legend>
+			<legend>正在批复</legend>
 		</fieldset>
 		<div style="margin-left: 40px;margin-right: 40px;margin-top: 30px">
 
@@ -50,25 +50,16 @@
 					elem: '#LAY_table_user',
 					//url: '/demo/table/user/',
 					cols: [
-						[{
-								checkbox: true,
-								fixed: true
-							},
-							{
-								field: 'id',
-								title: 'ID',
-								width: 100,
-								sort: true,
-								fixed: true
-							},
+						[
 							{
 								field: 'project_name',
 								title: '项目名',
 								align: 'center'
-							},{
+							}, {
 								field: 'send_name',
 								title: '投稿人',
-								align: 'center'
+								align: 'center',
+								width:100
 							}, {
 								field: 'introduction',
 								title: '项目概述',
@@ -87,6 +78,10 @@
 								width: 160,
 								align: 'center'
 							}, {
+								field: 'context',
+								title: '报告内容',
+								align: 'center'
+							}, {
 								fixed: 'right',
 								title: '数据操作',
 								align: 'center',
@@ -95,13 +90,13 @@
 						]
 					],
 					data: [{
-						"id": '1',
 						"project_name": 'hnist',
 						"introduction": '介绍',
-						"send_name":'毛俊斌'  ,
-						"project_type":'古建筑文化',
+						"send_name": '毛俊斌',
+						"project_type": '古建筑文化',
 						"first_time": '2019.11.02 ',
-						"recent_time": '2019.11.04'
+						"recent_time": '2019.11.04',
+						"context": '<blockquote>大家一起加油吧!</blockquote><p><img src="http://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/3c/pcmoren_wu_org.png" alt="[污]" data-w-e="1"><img src="http://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/40/pcmoren_tian_org.png" alt="[舔屏]" data-w-e="1"><img src="http://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/3c/pcmoren_wu_org.png" alt="[污]" data-w-e="1"></p><blockquote>一起奋斗！</blockquote>'
 					}],
 					id: 'testReload',
 					page: true,
@@ -112,26 +107,15 @@
 				table.on('tool(demo)', function(obj) {
 					var data = obj.data;
 					if (obj.event === 'detail') {
-						layer.msg('ID：' + data.id + ' 的查看操作');
-						layer.open({
-							type: 1,
-							title: '正在查看***报告（草稿）', //标题栏
-							closeBtn: false,
-							area: ['700px', '600px'],
-							shade: 0,
-							id: 'LAY_layuipro', //设定一个id，防止重复弹出 
-							btn: ['关闭'],
-							btnAlign: 'c',
-							moveType: 1, //拖拽模式，0或者1
-							content: '<div id="editor" style="pointer-events: none;" ></div>',
-							success: function() {
-								var E = window.wangEditor;
-								var editor = new E('#editor');
-								editor.create();
-								editor.$textElem.attr('contenteditable', false); // 禁用编辑功能
-							}
-						});
-					}else if (obj.event === 'edit') {
+						//console.log(data);
+						function jumpUrl() {
+							window.location.href = 'reportExChange.html?title=' + data.project_name + '&introduction=' + data.introduction +
+								'&context=' + data.context;
+						}
+						layer.msg("即将至批复员工报告页面...");
+						setTimeout(jumpUrl, 1500);
+						//console.log('编辑行：<br>' + JSON.stringify(data));
+					} else if (obj.event === 'edit') {
 						layer.alert('编辑行：<br>' + JSON.stringify(data))
 					}
 				});

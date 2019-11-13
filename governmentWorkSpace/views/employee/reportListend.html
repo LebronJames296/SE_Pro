@@ -25,7 +25,6 @@
 		<script type="text/html" id="barDemo">
 			<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">交流详情</a>
 		    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-		
 		</script>
 
 		<script>
@@ -53,35 +52,33 @@
 					elem: '#LAY_table_user',
 					//url: '/demo/table/user/',
 					cols: [
-						[
-							{
-								field: 'project_name',
-								title: '项目名',
-								align: 'center'
-							}, {
-								field: 'introduction',
-								title: '项目概述',
-								align: 'center'
-							}, {
-								field: 'first_time',
-								title: '项目创建时间',
-								align: 'center'
-							}, {
-								field: 'recent_time',
-								title: '项目最近更新时间',
-								width: 160,
-								align: 'center'
-							}, {
-								field: 'context',
-								title: '报告内容',
-								align: 'center'
-							}, {
-								fixed: 'right',
-								title: '数据操作',
-								align: 'center',
-								toolbar: '#barDemo'
-							}
-						]
+						[{
+							field: 'project_name',
+							title: '项目名',
+							align: 'center'
+						}, {
+							field: 'introduction',
+							title: '项目概述',
+							align: 'center'
+						}, {
+							field: 'first_time',
+							title: '项目创建时间',
+							align: 'center'
+						}, {
+							field: 'recent_time',
+							title: '项目最近更新时间',
+							width: 160,
+							align: 'center'
+						}, {
+							field: 'context',
+							title: '报告内容',
+							align: 'center'
+						}, {
+							fixed: 'right',
+							title: '数据操作',
+							align: 'center',
+							toolbar: '#barDemo'
+						}]
 					],
 					data: [{
 						"id": '1',
@@ -89,7 +86,8 @@
 						"introduction": '湖南理工学院官方介绍',
 						"first_time": '2019.11.02 ',
 						"recent_time": '2019.11.04',
-						"context": '<blockquote>大家一起加油吧!</blockquote><p><img src="http://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/3c/pcmoren_wu_org.png" alt="[污]" data-w-e="1"><img src="http://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/40/pcmoren_tian_org.png" alt="[舔屏]" data-w-e="1"><img src="http://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/3c/pcmoren_wu_org.png" alt="[污]" data-w-e="1"></p><blockquote>一起奋斗！</blockquote>'
+						"context": '<blockquote>大家一起加油吧!</blockquote><p><img src="http://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/3c/pcmoren_wu_org.png" alt="[污]" data-w-e="1"><img src="http://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/40/pcmoren_tian_org.png" alt="[舔屏]" data-w-e="1"><img src="http://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/3c/pcmoren_wu_org.png" alt="[污]" data-w-e="1"></p><blockquote>一起奋斗！</blockquote>',
+						"status": '1'
 					}],
 					id: 'testReload',
 					page: true,
@@ -100,32 +98,18 @@
 				table.on('tool(demo)', function(obj) {
 					var data = obj.data;
 					if (obj.event === 'detail') {
-						layer.msg('ID：' + data.id + ' 的查看操作');
-						layer.open({
-							type: 1,
-							title: '正在查看***报告（草稿）', //标题栏
-							closeBtn: false,
-							area: ['700px', '600px'],
-							shade: 0,
-							id: 'LAY_layuipro', //设定一个id，防止重复弹出 
-							btn: ['关闭'],
-							btnAlign: 'c',
-							moveType: 1, //拖拽模式，0或者1
-							content: '<div id="editor" style="pointer-events: none;" ></div>',
-							success: function() {
-								var E = window.wangEditor;
-								var editor = new E('#editor');
-								editor.create();
-								editor.txt.html(data.context);
-								editor.$textElem.attr('contenteditable', false); // 禁用编辑功能
-							}
-						});
+						function jumpUrl() {
+							window.location.href = 'reportExChange.html?title=' + data.project_name + '&introduction=' + data.introduction +
+								'&context=' + data.context + '&status=' +data.status;
+						}
+						layer.msg("即将跳转到报告交流详情页面...");
+						setTimeout(jumpUrl, 1500);
 					} else if (obj.event === 'del') {
 						layer.confirm('真的删除行么', function(index) {
 							obj.del();
 							layer.close(index);
 						});
-					} 
+					}
 				});
 
 
