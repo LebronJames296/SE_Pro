@@ -81,15 +81,16 @@
 						<!-- 评论区单个样式 -->
 						<div style="margin-top: 5px; display: inline-block;">
 							<img src="../../utils/image/hnistLogo.png" style="height: 34px;width: 34px;display: inline-block; float: right;" />
-							<div style="width: 350px;display: inline-block;float: right;margin-right: 5px;text-align: right;font-size: 6px;">2019-11-11 19:30:56</div>
-							<div style="background-color: #93D1FF;width: 350px;display: inline-block;float: right;margin-right: 5px;">报告写得很棒，思想敏锐，意图明确，继续加油,我相信你可以的！</div>
+							<div style="width: 520px;display: inline-block;float: right;margin-right: 5px;text-align: right;font-size: 6px;">2019-11-11
+								19:30:56</div>
+							<div style="background-color: #93D1FF;max-width: 350px;display: inline-block;float: right;margin-right: 5px;word-break:break-all;">报告写得很棒，思想敏锐，意图明确，继续加油,我相信你可以的！</div>
 						</div>
 
 						<div style="margin-top: 5px;display: inline-block; ">
-							<img src="../../utils/image/天空1.jpg"  style="height: 34px;width: 34px;display: inline-block; float: left;"/>
-							<div style="width: 350px;display: inline-block;margin-left: 5px; font-size: 6px;">2019-11-11
+							<img src="../../utils/image/天空1.jpg" style="height: 34px;width: 34px;display: inline-block; float: left;" />
+							<div style="width: 520px;display: inline-block;margin-left: 5px; font-size: 6px;">2019-11-11
 								19:30:56</div>
-							<div style="background-color: #eeeeee;width: 350px;display: inline-block;margin-left: 5px; ">谢谢领导，我会继续加油，为政府，为人民！</div>
+							<div style="background-color: #eeeeee;max-width: 350px;display: inline-block;margin-left: 5px;word-break:break-all; ">谢谢领导，我会继续加油！</div>
 						</div>
 
 						<div id="change"></div>
@@ -115,6 +116,15 @@
 <script src="../../utils/wangEditor/release/wangEditor.js"></script>
 <script src="../../utils/layui/layui.js"></script>
 <script>
+	//键盘绑定发送信息事件
+	document.onkeydown = function(e) { // 回车提交表单
+		// 兼容FF和IE和Opera
+		var theEvent = window.event || e;
+		var code = theEvent.keyCode || theEvent.which || theEvent.charCode;
+		if (code == 13) {
+			sendMessage();
+		}
+	}
 	//时间戳变成时间（格式更加清楚）
 	function getdate() {
 		var now = new Date(),
@@ -125,14 +135,19 @@
 	}
 	//发送消息方法
 	function sendMessage() {
-		document.getElementById('change').outerHTML = '	<div style="margin-top: 5px;display: inline-block; ">' +
-			'<img src="../../utils/image/hnistLogo.png" style="height: 34px;width: 34px;display: inline-block; float: right;" />' +
-			'<div style="width: 350px;display: inline-block;float: right;margin-right: 5px;text-align: right;font-size: 6px;">' +
-			getdate() + '</div>' +
-			'<div style="background-color: #93D1FF;width: 350px;display: inline-block;float: right;margin-right: 5px;">' +
-			document.getElementById('textMessage').value + '</div>' +
-			'</div><div id="change"></div>';
-		document.getElementById('textMessage').value = '';
+		if (document.getElementById('textMessage').value.trim() == "") {
+			layer.msg("发送消息不能为空！");
+			document.getElementById('textMessage').value = '';
+		} else {
+			document.getElementById('change').outerHTML = '	<div style="margin-top: 5px;display: inline-block; ">' +
+				'<img src="../../utils/image/hnistLogo.png" style="height: 34px;width: 34px;display: inline-block; float: right;" />' +
+				'<div style="width: 520px;display: inline-block;float: right;margin-right: 5px;text-align: right;font-size: 6px;">' +
+				getdate() + '</div>' +
+				'<div style="background-color: #93D1FF;max-width: 350px;display: inline-block;float: right;margin-right: 5px;word-break:break-all;">' +
+				document.getElementById('textMessage').value + '</div>' +
+				'</div><div id="change"></div>';
+			document.getElementById('textMessage').value = '';
+		}
 	}
 	//用JS获取地址栏参数的方法
 	function GetQueryString(name) {
