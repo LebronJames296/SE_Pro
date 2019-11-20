@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pink.se.mapper.ReportMapper" >
+  <resultMap id="BaseResultMap" type="com.pink.se.model.Report" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="category_id" property="categoryId" jdbcType="INTEGER" />
+    <result column="version_id" property="versionId" jdbcType="INTEGER" />
+    <result column="commit_staff_id" property="commitStaffId" jdbcType="INTEGER" />
+    <result column="receive_staff_id" property="receiveStaffId" jdbcType="INTEGER" />
+    <result column="commit_time" property="commitTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="delete_status" property="deleteStatus" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, title, category_id, version_id, commit_staff_id, receive_staff_id, commit_time,
+    status, delete_status
+  </sql>
+
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_report
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_report
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pink.se.model.Report" >
+    insert into t_report (id, title, category_id,
+      version_id, commit_staff_id, receive_staff_id, 
+      commit_time, status, delete_status
+      )
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{categoryId,jdbcType=INTEGER},
+      #{versionId,jdbcType=INTEGER}, #{commitStaffId,jdbcType=INTEGER}, #{receiveStaffId,jdbcType=INTEGER}, 
+      #{commitTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, #{deleteStatus,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pink.se.model.Report" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_report
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="categoryId != null" >
+        category_id,
+      </if>
+      <if test="versionId != null" >
+        version_id,
+      </if>
+      <if test="commitStaffId != null" >
+        commit_staff_id,
+      </if>
+      <if test="receiveStaffId != null" >
+        receive_staff_id,
+      </if>
+      <if test="commitTime != null" >
+        commit_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="deleteStatus != null" >
+        delete_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryId != null" >
+        #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="versionId != null" >
+        #{versionId,jdbcType=INTEGER},
+      </if>
+      <if test="commitStaffId != null" >
+        #{commitStaffId,jdbcType=INTEGER},
+      </if>
+      <if test="receiveStaffId != null" >
+        #{receiveStaffId,jdbcType=INTEGER},
+      </if>
+      <if test="commitTime != null" >
+        #{commitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="deleteStatus != null" >
+        #{deleteStatus,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pink.se.model.Report" >
+    update t_report
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryId != null" >
+        category_id = #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="versionId != null" >
+        version_id = #{versionId,jdbcType=INTEGER},
+      </if>
+      <if test="commitStaffId != null" >
+        commit_staff_id = #{commitStaffId,jdbcType=INTEGER},
+      </if>
+      <if test="receiveStaffId != null" >
+        receive_staff_id = #{receiveStaffId,jdbcType=INTEGER},
+      </if>
+      <if test="commitTime != null" >
+        commit_time = #{commitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="deleteStatus != null" >
+        delete_status = #{deleteStatus,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pink.se.model.Report" >
+    update t_report
+    set title = #{title,jdbcType=VARCHAR},
+      category_id = #{categoryId,jdbcType=INTEGER},
+      version_id = #{versionId,jdbcType=INTEGER},
+      commit_staff_id = #{commitStaffId,jdbcType=INTEGER},
+      receive_staff_id = #{receiveStaffId,jdbcType=INTEGER},
+      commit_time = #{commitTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      delete_status = #{deleteStatus,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

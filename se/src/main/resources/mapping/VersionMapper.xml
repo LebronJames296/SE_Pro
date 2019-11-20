@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pink.se.mapper.VersionMapper" >
+  <resultMap id="BaseResultMap" type="com.pink.se.model.Version" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="report_id" property="reportId" jdbcType="INTEGER" />
+    <result column="report_version" property="reportVersion" jdbcType="INTEGER" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="reply_ids" property="replyIds" jdbcType="VARCHAR" />
+    <result column="message" property="message" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.pink.se.model.Version" extends="BaseResultMap" >
+    <result column="report_content" property="reportContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, report_id, report_version, created_at, reply_ids, message
+  </sql>
+  <sql id="Blob_Column_List" >
+    report_content
+  </sql>
+
+<select id="getCurrentReportMaxVersionByReportId" resultType="java.lang.Integer">
+SELECT
+	max( report_version ) max_version
+FROM
+	t_version
+WHERE
+	report_id = #{reportId}
+</select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_version
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_version
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pink.se.model.Version" >
+    insert into t_version (id, report_id, report_version, 
+      created_at, reply_ids, message, 
+      report_content)
+    values (#{id,jdbcType=INTEGER}, #{reportId,jdbcType=INTEGER}, #{reportVersion,jdbcType=INTEGER}, 
+      #{createdAt,jdbcType=TIMESTAMP}, #{replyIds,jdbcType=VARCHAR}, #{message,jdbcType=VARCHAR}, 
+      #{reportContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pink.se.model.Version" keyProperty="id" useGeneratedKeys="true" >
+    insert into t_version
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="reportId != null" >
+        report_id,
+      </if>
+      <if test="reportVersion != null" >
+        report_version,
+      </if>
+      <if test="createdAt != null" >
+        created_at,
+      </if>
+      <if test="replyIds != null" >
+        reply_ids,
+      </if>
+      <if test="message != null" >
+        message,
+      </if>
+      <if test="reportContent != null" >
+        report_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="reportId != null" >
+        #{reportId,jdbcType=INTEGER},
+      </if>
+      <if test="reportVersion != null" >
+        #{reportVersion,jdbcType=INTEGER},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replyIds != null" >
+        #{replyIds,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null" >
+        #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="reportContent != null" >
+        #{reportContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pink.se.model.Version" >
+    update t_version
+    <set >
+      <if test="reportId != null" >
+        report_id = #{reportId,jdbcType=INTEGER},
+      </if>
+      <if test="reportVersion != null" >
+        report_version = #{reportVersion,jdbcType=INTEGER},
+      </if>
+      <if test="createdAt != null" >
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replyIds != null" >
+        reply_ids = #{replyIds,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null" >
+        message = #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="reportContent != null" >
+        report_content = #{reportContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.pink.se.model.Version" >
+    update t_version
+    set report_id = #{reportId,jdbcType=INTEGER},
+      report_version = #{reportVersion,jdbcType=INTEGER},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      reply_ids = #{replyIds,jdbcType=VARCHAR},
+      message = #{message,jdbcType=VARCHAR},
+      report_content = #{reportContent,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pink.se.model.Version" >
+    update t_version
+    set report_id = #{reportId,jdbcType=INTEGER},
+      report_version = #{reportVersion,jdbcType=INTEGER},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      reply_ids = #{replyIds,jdbcType=VARCHAR},
+      message = #{message,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

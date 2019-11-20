@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pink.se.mapper.CollectionMapper" >
+  <resultMap id="BaseResultMap" type="com.pink.se.model.Collection" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="collecter_id" property="collecterId" jdbcType="INTEGER" />
+    <result column="report_id" property="reportId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, collecter_id, report_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_collection
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_collection
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pink.se.model.Collection" >
+    insert into t_collection (id, collecter_id, report_id
+      )
+    values (#{id,jdbcType=INTEGER}, #{collecterId,jdbcType=INTEGER}, #{reportId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pink.se.model.Collection" >
+    insert into t_collection
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="collecterId != null" >
+        collecter_id,
+      </if>
+      <if test="reportId != null" >
+        report_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="collecterId != null" >
+        #{collecterId,jdbcType=INTEGER},
+      </if>
+      <if test="reportId != null" >
+        #{reportId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pink.se.model.Collection" >
+    update t_collection
+    <set >
+      <if test="collecterId != null" >
+        collecter_id = #{collecterId,jdbcType=INTEGER},
+      </if>
+      <if test="reportId != null" >
+        report_id = #{reportId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pink.se.model.Collection" >
+    update t_collection
+    set collecter_id = #{collecterId,jdbcType=INTEGER},
+      report_id = #{reportId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
