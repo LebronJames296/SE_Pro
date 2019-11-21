@@ -1,8 +1,12 @@
 package com.pink.se.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class Report {
+
     private Integer id;
 
     private String title;
@@ -11,9 +15,12 @@ public class Report {
 
     private Integer versionId;
 
+
     private Integer commitStaffId;
 
+
     private Integer receiveStaffId;
+
 
     private Date commitTime;
 

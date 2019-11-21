@@ -4,6 +4,7 @@ package com.pink.se.exception;
 import com.pink.se.response.RespBean;
 import org.springframework.http.converter.HttpMessageConversionException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -21,6 +22,15 @@ public class GlobalExceptionHandler {
 
         return RespBean.fail("请求出现问题，请检查参数");
 
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class )
+    public RespBean myMethodsArgsException(MethodArgumentNotValidException e){
+
+        return RespBean.fail("请填写必填项");
 
     }
+
+
+
 }
